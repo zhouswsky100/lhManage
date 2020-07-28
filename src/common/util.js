@@ -18,7 +18,9 @@ export default{
         pemissionList :`/lh/pemission/list/`, //激活/封存用户 
         roleList: `/lh/role/list` , //获取角色列表
         changeRole:`/lh/role/change/${sessionStorage.id}`,//获取角色列表
-        roleAdd:`/lh/role/add`//获取角色列表
+        roleAdd:`/lh/role/add`,//获取角色列表
+        delRole:`/lh/role/del/${sessionStorage.id}`,//获取角色列表
+                    
         
       };
       if(process.env.NODE_ENV === 'production'){

@@ -114,6 +114,21 @@
            this.dialogFormVisible2 = true ;
 
       },
+      deleteUser(id){
+          sessionStorage.id = id
+          this.getHttpPost({},'delRole',true,'DELETE').then(res => {
+              this.loginLoading = false;
+              if(res.code==0){
+                    this.$message({
+                    message: '删除成功',
+                    type: 'success'
+                  }); 
+                  this.initData()
+              }
+              },error=>{
+                this.$message.error('网络开小差了');
+          })
+      },
       initData(){
           this.loading = true;
           this.getHttpPost({},'roleList',true,'get').then(res => {
