@@ -17,6 +17,7 @@
     <el-table
         :data="usersData"
         border
+        v-loading="loading"
         ref="table"
         style="width: 100%">
       <el-table-column
@@ -124,6 +125,7 @@
         params: {
           name: '',
         },
+        loading:false,
         usersData:[],
         userAdd: {
           username: '',
@@ -165,6 +167,7 @@
                     message: '添加成功',
                     type: 'success'
                   });
+                  this.initRoList()
                 }
               },error=>{
                 this.$message.error('网络开小差了');
@@ -174,7 +177,7 @@
       },
       updateData(){
          let param ={
-            role_id:this.userAdd.role.id,
+            role_id:this.userAdd.role_id,
             mobile :this.userAdd.mobile,
             email:this.userAdd.email,
             username :this.userAdd.username,
@@ -186,6 +189,7 @@
                     message: '更新成功',
                     type: 'success'
                   });
+                  this.initRoList()
                 }
               },error=>{
                 this.$message.error('网络开小差了');
@@ -234,8 +238,8 @@
           })
       },
       initRoList(){
+          this.loading = true;
           this.getHttpPost({},'roleSelect',true,'get').then(res => {
-              this.loginLoading = false;
               if(res.code==0){
                    this.roleList = res.data
                 }
@@ -243,7 +247,7 @@
                 this.$message.error('网络开小差了');
           })
           this.getHttpPost({},'userList',true,'get').then(res => {
-              this.loginLoading = false;
+              this.loading = false;
               if(res.code==0){
                    this.usersData = res.data
                 }
